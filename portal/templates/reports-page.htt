@@ -17,13 +17,24 @@
 
 			<table class="table table-bordered table-striped table-highlight">
 				<thead>
-					<tr><th>Начало</th><th width="1%" nowrap="nowrap">Продолжительность</th><th width="1%" nowrap="nowrap">Тип проверки</th><th width="1%" nowrap="nowrap">Состояние</th></tr>
+					<tr>
+					    <th>Начало</th>
+					    <th width="1%" nowrap="nowrap">Продолжительность</th>
+					    <th width="1%" nowrap="nowrap">Всего URL</th>
+					    <th width="1%" nowrap="nowrap">Недоступны</th>
+					    <th width="1%" nowrap="nowrap">Доступны</th>
+					    <th width="1%" nowrap="nowrap">Тип проверки</th>
+					    <th width="1%" nowrap="nowrap">Состояние</th>
+					</tr>
 				</thead>
 				<tbody>
 					{% for scan in scans %}
 						<tr{% if scan.state == 'new' %} class="active-row"{% endif %}>
 							<td><a href="{{ scan.get_details_url }}" class="scan_details" target="scan_details" title="Проверка: {{ scan.started }}">{{ scan.started|naturaltime }}</a></a></td>
 							<td width="1%" nowrap="nowrap" style="text-align: center !important;">{{ scan.get_duration }}</td>
+							<td width="1%">{{ scan.total }}</td>
+							<td width="1%">{{ scan.unavailable }}</td>
+							<td width="1%"><a href="{{ scan.get_available_links_url }}">{{ scan.available }}</a></td>
 							<td width="1%" nowrap="nowrap" style="text-align: center !important;">{{ scan.get_mode_display }}</td>
 							<td width="1%" nowrap="nowrap" style="text-align: center !important;">{% if scan.state == 'new' %}<span class="label" id="scan_state_{{ scan.id }}">{{ scan.progress }}% выполнено</span>{% else %}{% if scan.state == 'failed' %}<span class="label label-important">{{ scan.get_state_display }}</span>{% else %}<span class="label label-success">{{ scan.get_state_display }}</span>{% endif %}{% endif %}</td>
 						</tr>

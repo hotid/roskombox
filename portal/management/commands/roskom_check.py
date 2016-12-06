@@ -92,7 +92,7 @@ class Worker(threading.Thread):
 			percents = int((float(counter) / float(self.total_count)) * 100.0)
 			self.scan.set_progress(percents)
 		
-		print(u"(%d of %d) [%s] %s" % (counter, self.total_count, item['status'], item['url']))
+		print(u"(%d of %d) [%s] %s" % (counter, self.total_count, item['status'], item['url'].encode('utf-8')))
 
 	def process_item(self, item):
 		global search_substring, request_headers
